@@ -5,7 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ChairSimulator extends JFrame {
+public class ChairSimulator extends JFrame
+{
 
     private Human human;
     private Chair currentChair;
@@ -14,7 +15,8 @@ public class ChairSimulator extends JFrame {
     private JLabel chairHeightLabel;
     private JPanel chairPanel;
 
-    public ChairSimulator() {
+    public ChairSimulator()
+    {
         human = new Human();
         woodenChair = new WoodenChair(60, "Oak");
         officeChair = new OfficeChair(65, "AWS");
@@ -27,9 +29,11 @@ public class ChairSimulator extends JFrame {
         setLayout(new BorderLayout());
 
         // Add a panel to represent the chair
-        chairPanel = new JPanel() {
+        chairPanel = new JPanel() 
+        {
             @Override
-            protected void paintComponent(Graphics g) {
+            protected void paintComponent(Graphics g)
+            {
                 super.paintComponent(g);
                 drawScene(g);
             }
@@ -44,12 +48,14 @@ public class ChairSimulator extends JFrame {
 
         // Add buttons for interaction
         JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new GridLayout(1, 5));
+        controlPanel.setLayout(new GridLayout(1, 6));
 
         JButton officeChairButton = new JButton("Select Office Chair");
-        officeChairButton.addActionListener(new ActionListener() {
+        officeChairButton.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 currentChair = officeChair;
                 updateChairHeightLabel();
                 repaint();
@@ -57,9 +63,11 @@ public class ChairSimulator extends JFrame {
         });
 
         JButton woodenChairButton = new JButton("Select Wooden Chair");
-        woodenChairButton.addActionListener(new ActionListener() {
+        woodenChairButton.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 currentChair = woodenChair;
                 updateChairHeightLabel();
                 repaint();
@@ -67,9 +75,11 @@ public class ChairSimulator extends JFrame {
         });
 
         JButton raiseButton = new JButton("Raise Chair");
-        raiseButton.addActionListener(new ActionListener() {
+        raiseButton.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 human.raiseChair(currentChair, 5);
                 updateChairHeightLabel();
                 repaint();
@@ -77,9 +87,11 @@ public class ChairSimulator extends JFrame {
         });
 
         JButton lowerButton = new JButton("Lower Chair");
-        lowerButton.addActionListener(new ActionListener() {
+        lowerButton.addActionListener(new ActionListener() 
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 human.lowerChair(currentChair, 5);
                 updateChairHeightLabel();
                 repaint();
@@ -87,34 +99,41 @@ public class ChairSimulator extends JFrame {
         });
 
         JButton sitButton = new JButton("Sit on Chair");
-        sitButton.addActionListener(new ActionListener() {
+        sitButton.addActionListener(new ActionListener() 
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (human.isSitting()) {
+            public void actionPerformed(ActionEvent e) 
+            {
+                if (human.isSitting()) 
+                {
                     human.stand();
                     sitButton.setText("Sit on Chair");
-                } else {
+                } else
+                {
                     human.sit(currentChair);
-                    sitButton.setText("Stand up");
+                    sitButton.setText("NO!!!! i'm sitting ");
                 }
                 repaint();
             }
         });
-
+        
         controlPanel.add(officeChairButton);
         controlPanel.add(woodenChairButton);
         controlPanel.add(raiseButton);
         controlPanel.add(lowerButton);
         controlPanel.add(sitButton);
 
+
         add(controlPanel, BorderLayout.SOUTH);
     }
 
-    private void updateChairHeightLabel() {
+    private void updateChairHeightLabel() 
+    {
         chairHeightLabel.setText("Chair Height: " + currentChair.getHeight());
     }
 
-    private void drawScene(Graphics g) {
+    private void drawScene(Graphics g) 
+    {
         // Draw background
         g.setColor(new Color(220, 220, 220)); 
         g.fillRect(0, 0, getWidth(), getHeight());
@@ -130,16 +149,20 @@ public class ChairSimulator extends JFrame {
         drawHuman(g);
     }
 
-    private void drawChair(Graphics g) {
+    private void drawChair(Graphics g)
+    {
         // Drawing the chair based on the type
-        if (currentChair instanceof WoodenChair) {
+        if (currentChair instanceof WoodenChair)
+        {
             drawWoodenChair(g);
-        } else if (currentChair instanceof OfficeChair) {
+        } else if (currentChair instanceof OfficeChair) 
+        {
             drawOfficeChair(g);
         }
     }
 
-    private void drawWoodenChair(Graphics g) {
+    private void drawWoodenChair(Graphics g) 
+    {
         g.setColor(new Color(139, 69, 19)); 
         g.fillRect(350, 250 - currentChair.getHeight(), 120, 20); 
 
@@ -151,7 +174,8 @@ public class ChairSimulator extends JFrame {
         g.fillRect(350, 250 - currentChair.getHeight() - 40, 120, 10);  
     }
 
-    private void drawOfficeChair(Graphics g) {
+    private void drawOfficeChair(Graphics g) 
+    {
         g.setColor(new Color(0, 102, 204)); 
         g.fillRect(350, 250 - currentChair.getHeight(), 120, 20); 
 
@@ -167,7 +191,8 @@ public class ChairSimulator extends JFrame {
         g.fillOval(455, 320 - currentChair.getHeight(), 15, 15); 
     }
 
-    private void drawHuman(Graphics g) {
+    private void drawHuman(Graphics g) 
+    {
         g.setColor(Color.PINK);
         g.fillOval(human.getXPosition(), human.getYPosition(), 40, 40); 
 
@@ -179,10 +204,12 @@ public class ChairSimulator extends JFrame {
         g.drawLine(human.getXPosition() + 10, human.getYPosition() + 40, human.getXPosition() + 40, human.getYPosition() + 60); 
 
         g.setColor(Color.BLUE);
-        if (human.isSitting()) {
+        if (human.isSitting()) 
+        {
             g.drawLine(human.getXPosition() + 10, human.getYPosition() + 90, human.getXPosition() - 20, human.getYPosition() + 120); 
             g.drawLine(human.getXPosition() + 10, human.getYPosition() + 90, human.getXPosition() + 40, human.getYPosition() + 120); 
-        } else {
+        } else
+        {
             g.drawLine(human.getXPosition() + 10, human.getYPosition() + 90, human.getXPosition() - 20, human.getYPosition() + 120); 
             g.drawLine(human.getXPosition() + 10, human.getYPosition() + 90, human.getXPosition() + 40, human.getYPosition() + 120); 
         }
@@ -191,12 +218,16 @@ public class ChairSimulator extends JFrame {
         g.fillOval(human.getXPosition() + 10, human.getYPosition() + 10, 5, 5); 
         g.fillOval(human.getXPosition() + 25, human.getYPosition() + 10, 5, 5); 
         g.drawArc(human.getXPosition() + 10, human.getYPosition() + 15, 20, 10, 0, human.isSitting() ? -180 : 180); 
+      
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+    public static void main(String[] args) 
+{
+        SwingUtilities.invokeLater(new Runnable() 
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 ChairSimulator simulator = new ChairSimulator();
                 simulator.setVisible(true);
             }
